@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ """
 from tests.test_models.test_base_model import test_basemodel
-from models.city import Review
+from models.review import Review
 
 
 class test_City(test_basemodel):
