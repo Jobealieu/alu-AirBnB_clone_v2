@@ -65,9 +65,10 @@ class HBNBCommand(cmd.Cmd):
                 obj = eval(my_list[0])()
             else:
                 obj = eval(my_list[0])(**kwargs)
-                storage.new(obj)
-            print(obj.id)
+            
+            storage.new(obj)
             obj.save()
+            print(obj.id)
 
         except SyntaxError:
             print("** class name missing **")
