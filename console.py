@@ -51,11 +51,9 @@ class HBNBCommand(cmd.Cmd):
 
             kwargs = {}
             for i in range(1, len(my_list)):
-                if "=" not in my_list[i]:
-                    continue
-                key, value = my_list[i].split("=", 1)
-                if value.startswith('"') and value.endswith('"'):
-                    value = value[1:-1].replace("_", " ")
+                key, value = tuple(my_list[i].split("="))
+                if value[0] == '"':
+                    value = value.strip('"').replace("_", " ")
                 else:
                     try:
                         value = eval(value)
@@ -67,10 +65,9 @@ class HBNBCommand(cmd.Cmd):
                 obj = eval(my_list[0])()
             else:
                 obj = eval(my_list[0])(**kwargs)
-            
-            storage.new(obj)
-            obj.save()
+                storage.new(obj)
             print(obj.id)
+            obj.save()
 
         except SyntaxError:
             print("** class name missing **")
