@@ -65,7 +65,9 @@ class HBNBCommand(cmd.Cmd):
                 obj = eval(my_list[0])()
             else:
                 obj = eval(my_list[0])(**kwargs)
-                storage.new(obj)
+            
+            # Always call storage.new() to register the object
+            storage.new(obj)
             print(obj.id)
             obj.save()
 
