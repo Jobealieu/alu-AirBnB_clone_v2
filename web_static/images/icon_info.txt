@@ -1,0 +1,6 @@
+For Task 8, you need these icons:
+- icon_group.png (for guests)
+- icon_bed.png (for bedrooms)
+- icon_bath.png (for bathrooms)
+
+You can create simple SVG placeholders or download appropriate icons.
