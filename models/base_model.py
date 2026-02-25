@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
-from sqlalchemy.orm import declarative_base
+try:
+    from sqlalchemy.orm import declarative_base
+except ImportError:
+    from sqlalchemy.ext.declarative import declarative_base
 from uuid import uuid4
 from datetime import datetime
 import models

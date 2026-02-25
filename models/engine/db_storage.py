@@ -35,9 +35,10 @@ class DBStorage:
         #     f"{HBNB_MYSQL_PWD}@{HBNB_MYSQL_HOST}/"
         #     f"{HBNB_MYSQL_DB}"
         # )
+
         db = "mysql+mysqldb://{}:{}@{}/{}?charset=utf8mb4".format(
-    HBNB_MYSQL_USER, HBNB_MYSQL_PWD, HBNB_MYSQL_HOST, HBNB_MYSQL_DB
-)
+            HBNB_MYSQL_USER, HBNB_MYSQL_PWD, HBNB_MYSQL_HOST, HBNB_MYSQL_DB
+        )
         self.__engine = create_engine(db, pool_pre_ping=True)
 
         # drop all tables if HBNB_ENV == test
@@ -103,5 +104,6 @@ class DBStorage:
         self.__session = Session()
 
     def close(self):
-        """class close"""
-        self.__session.close()
+    """Close the current session and reload to create a new one."""
+    self.__session.close()
+    self.reload()
