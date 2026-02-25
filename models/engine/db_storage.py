@@ -35,9 +35,9 @@ class DBStorage:
         #     f"{HBNB_MYSQL_PWD}@{HBNB_MYSQL_HOST}/"
         #     f"{HBNB_MYSQL_DB}"
         # )
-        db = "mysql+mysqldb://{}:{}@{}/{}".format(
-            HBNB_MYSQL_USER, HBNB_MYSQL_PWD, HBNB_MYSQL_HOST, HBNB_MYSQL_DB
-        )
+        db = "mysql+mysqldb://{}:{}@{}/{}?charset=utf8mb4".format(
+    HBNB_MYSQL_USER, HBNB_MYSQL_PWD, HBNB_MYSQL_HOST, HBNB_MYSQL_DB
+)
         self.__engine = create_engine(db, pool_pre_ping=True)
 
         # drop all tables if HBNB_ENV == test
