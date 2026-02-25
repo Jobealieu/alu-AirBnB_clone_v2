@@ -29,20 +29,29 @@ ln -s /data/web_static/releases/test/ /data/web_static/current
 # Give ownership of /data/ to ubuntu user and group recursively
 chown -R ubuntu:ubuntu /data/
 
-# Target emergency-app config if it exists, otherwise fall back to default
-if [ -f /etc/nginx/sites-enabled/emergency-app ]; then
-    NGINX_CONF=/etc/nginx/sites-enabled/emergency-app
-else
-    NGINX_CONF=/etc/nginx/sites-available/default
-fi
+# Write a clean default Nginx config with hbnb_static alias
+cat > /etc/nginx/sites-available/default << 'NGINXEOF'
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+    server_name _;
 
-# Remove existing hbnb_static block if present to avoid duplicates
-sed -i '/location \/hbnb_static\//,/}/d' "$NGINX_CONF"
+    location /hbnb_static/ {
+        alias /data/web_static/current/;
+    }
 
-# Insert hbnb_static location block before the first location block
-sed -i '/location \/ {/i\\    location /hbnb_static/ {\n        alias /data/web_static/current/;\n    }\n' "$NGINX_CONF"
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+NGINXEOF
+
+# Enable the default site if not already enabled
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 # Reload Nginx to apply changes
-service nginx reload
+service nginx restart
 
 exit 0
