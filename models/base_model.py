@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 try:
+    try:
     from sqlalchemy.orm import declarative_base
+except ImportError:
+    from sqlalchemy.ext.declarative import declarative_base
 except ImportError:
     from sqlalchemy.ext.declarative import declarative_base
 from uuid import uuid4
