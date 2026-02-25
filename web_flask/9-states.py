@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Flask app with routes for listing all states and a specific state's cities."""
+"""Flask app for listing states and a specific state's cities."""
 from flask import Flask, render_template
 from models import storage
 from models.state import State
