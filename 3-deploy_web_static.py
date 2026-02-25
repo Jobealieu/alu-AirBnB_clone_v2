@@ -24,9 +24,7 @@ def do_pack():
 
     print("Packing web_static to {}".format(archive_path))
 
-    web_static_path = "/home/jobealieu/alu-AirBnB_clone"
-    local("cd {} && tar -cvzf ~/alu-AirBnB_clone_v2/{} web_static".format(
-        web_static_path, archive_path))
+    local("tar -cvzf {} web_static".format(archive_path))
 
     if os.path.exists(archive_path):
         size = os.path.getsize(archive_path)
