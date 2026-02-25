@@ -9,9 +9,9 @@ import os
 def do_pack():
     """Pack the contents of web_static into a .tgz archive.
 
-    Creates a timestamped .tgz archive of the web_static directory and stores
-    it in the versions/ folder. Returns the archive path on success, or None
-    if the archive creation fails.
+    Creates a timestamped .tgz archive of the web_static directory and
+    stores it in the versions/ folder. Returns the archive path on success,
+    or None if the archive creation fails.
     """
     local("mkdir -p versions")
 
@@ -20,7 +20,9 @@ def do_pack():
 
     print("Packing web_static to {}".format(archive_path))
 
-    local("tar -cvzf {} -C /home/jobealieu/alu-AirBnB_clone web_static".format(archive_path), capture=False)
+    web_static_path = "/home/jobealieu/alu-AirBnB_clone"
+    local("cd {} && tar -cvzf ~/alu-AirBnB_clone_v2/{} web_static".format(
+        web_static_path, archive_path))
 
     if os.path.exists(archive_path):
         size = os.path.getsize(archive_path)
